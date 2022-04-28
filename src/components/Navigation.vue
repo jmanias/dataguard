@@ -19,12 +19,13 @@
         clipped
         app
         v-model="drawer"
-        width="250"
+        width="300"
     >
       <Logo class="pl-8 py-5" :sidebar="true"></Logo>
       <v-list>
         <v-list-item-group
             active-class="activeTab"
+            color="#000"
         >
           <v-list-item
               v-for="item in items"
@@ -95,7 +96,7 @@ export default {
 
 .activeTab {
   border-left: 6px solid red;
-  background-color: white !important;
+  background-color: red !important;
 }
 
 .enabledPluginStatus {
