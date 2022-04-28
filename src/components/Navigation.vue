@@ -16,8 +16,8 @@
         color="#f1f1f1"
         class="br-0"
         :permanent="!$vuetify.breakpoint.xsOnly"
-        app
         clipped
+        app
         v-model="drawer"
         width="250"
     >
@@ -46,19 +46,22 @@
         <div class="pa-2 d-flex">
           <v-card-text class="pt-5"> All plugins enabled</v-card-text>
           <v-switch
+              :value="getIsPluginsDisabled"
               inset
-              flat
               color="green"
+              hide-details
+              @change="toggleIsPluginsDisabled()"
           ></v-switch>
         </div>
-        <div class="pluginStatus pa-4"></div>
+        <div :class="[getIsPluginsDisabled ? 'enabledPluginStatus' : 'disabledPluginStatus', 'py-4']"></div>
       </template>
     </v-navigation-drawer>
   </div>
 </template>
 
 <script>
-import Logo from "@/components/layout/Logo";
+import Logo from "@/components/Logo";
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'TopBar',
@@ -75,6 +78,12 @@ export default {
         { title: 'Personnel', icon: 'mdi-clipboard-check-outline', link: 'Personnel' },
       ]
     }
+  },
+  computed: {
+    ...mapGetters(['getIsPluginsDisabled'])
+  },
+  methods: {
+    ...mapActions(['toggleIsPluginsDisabled'])
   }
 }
 </script>
@@ -89,8 +98,12 @@ export default {
   background-color: white !important;
 }
 
-.pluginStatus {
+.enabledPluginStatus {
   background: rgb(93,200,141);
   background: linear-gradient(0deg, rgba(93,200,141,1) 0%, rgba(241,241,241,0) 100%);
 }
+
+.disabledPluginStatus {
+  background: rgb(200,93,93);
+  background: linear-gradient(0deg, rgba(200,93,93,1) 0%, rgba(241,241,241,0) 100%);}
 </style>

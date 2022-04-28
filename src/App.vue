@@ -3,16 +3,14 @@
     <Navigation></Navigation>
     <v-main>
       <v-container>
-        <transition name="fade" mode="out-in">
           <router-view />
-        </transition>
       </v-container>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import Navigation from "@/components/layout/Navigation";
+import Navigation from "@/components/Navigation";
 
 export default {
   name: 'App',
