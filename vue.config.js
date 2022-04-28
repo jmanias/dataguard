@@ -4,11 +4,12 @@ module.exports = {
   transpileDependencies: [
     'vuetify'
   ],
-  configureWebpack: {
+  configureWebpack : {
     resolve: {
-      alias: {
-        '@': path.resolve(__dirname, 'src')
-      }
+      modules : [
+        path.resolve("./src"),
+        path.resolve("./node_modules")
+      ]
     },
   }
 }

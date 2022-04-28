@@ -25,7 +25,6 @@
       <v-list>
         <v-list-item-group
             active-class="activeTab"
-            color="#000"
         >
           <v-list-item
               v-for="item in items"
@@ -96,7 +95,11 @@ export default {
 
 .activeTab {
   border-left: 6px solid red;
-  background-color: red !important;
+  background-color: #fff !important;
+}
+
+.activeTab::before {
+  color: #fff !important;
 }
 
 .enabledPluginStatus {

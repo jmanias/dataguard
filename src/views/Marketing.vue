@@ -8,10 +8,10 @@
             outlined
             rounded
         >
-          <v-list-item three-line>
+          <v-list-item>
             <v-list-item-content>
               <v-row>
-                <v-col cols="6" class="text-h5 mb-1">
+                <v-col cols="12" sm="6" class="text-h5 mb-1">
                   {{ plugin.title }}
                 </v-col>
                 <v-col cols="6" class="d-flex justify-end">
@@ -23,7 +23,10 @@
                       hide-details
                       @change="toggleIsPluginsDisabled()"
                   ></v-switch>
-                  allowed
+                </v-col>
+                <v-col cols="12" class="mt-n4 py-0 d-flex justify-end font-weight-bold subtitle-2 pr-4">
+                  <div class="green--text"> Allowed </div>
+                  <div v-if="false" class="red--text"> Blocked </div>
                 </v-col>
               </v-row>
               <v-row>
