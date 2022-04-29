@@ -6,6 +6,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
+        snackbar: { active: false, color: "", message: "" },
         tab1: {},
         tab2: {},
         tab3: {},
@@ -43,6 +44,9 @@ export default new Vuex.Store({
         }
     },
     mutations: {
+        setSnackbar(state, snackbar) {
+            state.snackbar = snackbar;
+        },
         toggleIsPluginsEnabled(state) {
             state.isPluginsEnabled = !state.isPluginsEnabled
         },
@@ -67,6 +71,13 @@ export default new Vuex.Store({
         }
     },
     actions: {
+        setSnackbar({ commit }, message) {
+            commit("setSnackbar", {
+                active: true,
+                color: "grey",
+                message: message
+            });
+        },
         toggleIsPluginsEnabled(context) {
             context.commit('toggleIsPluginsEnabled')
         },
@@ -76,7 +87,7 @@ export default new Vuex.Store({
         setTabData(context) {
             context.commit('setTabData')
         },
-        async loadPlugins({commit}) {
+        async loadPlugins({commit, dispatch}) {
             try {
                 const response = await axios.get(`http://localhost:3000/data`)
                 const data = response.data
@@ -85,10 +96,10 @@ export default new Vuex.Store({
             } catch (e) {
                 const errMessage = 'Error retrieving plugins!'
                 console.log(e)
-                alert(errMessage)
+                dispatch('setSnackbar', errMessage)
             }
         },
-        async updatePlugins({getters}) {
+        async updatePlugins({dispatch, getters}) {
             try {
                const response =  await axios.post("http://localhost:3000/data", {
                     tabs: ["tab1", "tab2", "tab3"],
@@ -99,7 +110,7 @@ export default new Vuex.Store({
             } catch (e) {
                 const errMessage = 'Error updating plugins!'
                 console.log(e)
-                alert(errMessage)
+                dispatch('setSnackbar', errMessage)
             }
         }
     },

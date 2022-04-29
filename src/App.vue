@@ -6,16 +6,29 @@
           <router-view />
       </v-container>
     </v-main>
+    <v-snackbar v-model="snackbar.active" :timeout="3000" top :color="snackbar.color">
+      {{ snackbar.message}}
+      <template v-slot:action="{ attrs }">
+        <v-btn text v-bind="attrs" @click="snackbar.active = false">
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
+
   </v-app>
 </template>
 
 <script>
 import Navigation from "@/components/Navigation";
+import { mapState } from "vuex";
 
 export default {
   name: 'App',
   components: {
     Navigation
+  },
+  computed: {
+    ...mapState(["snackbar"])
   }
 }
 </script>

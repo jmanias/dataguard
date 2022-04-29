@@ -51,7 +51,7 @@ export default {
     ...mapGetters(['getPlugins', 'getIsPluginsEnabled', 'getTabByName'])
   },
   methods: {
-    ...mapActions(['loadPlugins', 'setTabData', 'toggleTabPluginStatusByName', 'updatePlugins']),
+    ...mapActions(['loadPlugins', 'setTabData', 'toggleTabPluginStatusByName', 'updatePlugins', 'setSnackbar']),
 
     sortPlugins () {
       const tab = this.getTabByName(this.tab)
@@ -80,6 +80,7 @@ export default {
     togglePluginStatus (name) {
       const payload = {name: name, tab: this.tab}
       this.toggleTabPluginStatusByName(payload)
+      this.setSnackbar("Plugin updated successfully!");
     }
   },
   data () {
