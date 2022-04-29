@@ -44,16 +44,18 @@
       </v-list>
       <template v-slot:append>
         <div class="pa-2 d-flex">
-          <v-card-text class="pt-5"> All plugins enabled</v-card-text>
+          <v-card-text class="pt-5"> All plugins
+          {{ getIsPluginsEnabled ? 'enabled' : 'disabled'}}
+          </v-card-text>
           <v-switch
-              :value="getIsPluginsDisabled"
+              v-model="isPluginsEnabled"
               inset
               color="green"
               hide-details
-              @change="toggleIsPluginsDisabled()"
+              @change="toggleIsPluginsEnabled()"
           ></v-switch>
         </div>
-        <div :class="[getIsPluginsDisabled ? 'enabledPluginStatus' : 'disabledPluginStatus', 'py-4']"></div>
+        <div :class="[getIsPluginsEnabled ? 'enabledPluginStatus' : 'disabledPluginStatus', 'py-4']"></div>
       </template>
     </v-navigation-drawer>
   </div>
@@ -68,22 +70,30 @@ export default {
   components: {
     Logo
   },
-  data () {
+  data() {
     return {
       drawer: false,
       switch: false,
       items: [
-        { title: 'Marketing', icon: 'mdi-view-dashboard', link: 'Marketing' },
-        { title: 'Finance', icon: 'mdi-finance', link: 'Finance' },
-        { title: 'Personnel', icon: 'mdi-clipboard-check-outline', link: 'Personnel' },
+        {title: 'Marketing', icon: 'mdi-view-dashboard', link: 'Marketing'},
+        {title: 'Finance', icon: 'mdi-finance', link: 'Finance'},
+        {title: 'Personnel', icon: 'mdi-clipboard-check-outline', link: 'Personnel'},
       ]
     }
   },
   computed: {
-    ...mapGetters(['getIsPluginsDisabled'])
-  },
+    ...mapGetters(['getIsPluginsEnabled']),
+  isPluginsEnabled: {
+    get() {
+      return this.getIsPluginsEnabled
+    },
+    set(newStatus) {
+      return newStatus
+    }
+  }
+},
   methods: {
-    ...mapActions(['toggleIsPluginsDisabled'])
+    ...mapActions(['toggleIsPluginsEnabled'])
   }
 }
 </script>

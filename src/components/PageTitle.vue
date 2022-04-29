@@ -1,5 +1,5 @@
 <template>
-  <v-row class="py-4">
+  <v-row class="py-4 px-2 mx-0" >
     <v-col cols="12">
       <h3 class="font-weight-medium text--black">{{ title }} Plugins</h3>
     </v-col>
