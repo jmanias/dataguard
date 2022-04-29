@@ -11,11 +11,11 @@
                 @change="togglePluginStatus(plugin)"
                 :value="plugin"
                 color="green"
-                hint="Allowed"
+                :hint="getTabByName(tab).active.includes(plugin) ? 'Allowed' : 'Blocked'"
                 persistent-hint
             >
               <template v-slot:message="{ message }">
-                <span :class="[1 === 1 ? 'red--text' : 'green--text', 'font-weight-bold']"  v-html="message"></span>
+                <span :class="[!getTabByName(tab).active.includes(plugin) ? 'red--text' : 'green--text', 'font-weight-bold']"  v-html="message"></span>
               </template>
             </v-switch>
           </v-card-title>
