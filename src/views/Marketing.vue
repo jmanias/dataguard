@@ -14,16 +14,6 @@ export default {
   components: {
     PageTitle,
     Plugins
-  },
-  computed: {
-  },
-  methods: {
-  },
-  mounted() {
-  },
-  data () {
-    return {
-    }
   }
 }
 </script>
