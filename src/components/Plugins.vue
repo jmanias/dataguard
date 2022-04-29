@@ -45,12 +45,13 @@ export default {
   },
   updated() {
     this.setTabData()
+    this.updatePlugins()
   },
   computed: {
     ...mapGetters(['getPlugins', 'getIsPluginsEnabled', 'getTabByName'])
   },
   methods: {
-    ...mapActions(['loadPlugins', 'setTabData', 'toggleTabPluginStatusByName']),
+    ...mapActions(['loadPlugins', 'setTabData', 'toggleTabPluginStatusByName', 'updatePlugins']),
 
     sortPlugins () {
       const tab = this.getTabByName(this.tab)
