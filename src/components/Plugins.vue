@@ -1,6 +1,15 @@
 <template>
   <div>
-    <v-row align="stretch" class="ma-2">
+    <div v-if="!plugins" class="text-center">
+    <v-progress-circular
+            indeterminate
+            :size="90"
+            :width="4"
+            color="secondary">
+      <div>Loading...</div>
+    </v-progress-circular>
+    </div>
+    <v-row v-else align="stretch" class="ma-2">
       <v-col cols="12" md="4" v-for="(plugin, index) in plugins" :key="index" class="d-flex">
         <v-card outlined rounded width="100%" class="pa-2" :disabled="!getIsPluginsEnabled || isPluginDisabled(plugin)">
           <v-card-title class="py-0">
