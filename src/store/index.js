@@ -86,8 +86,8 @@ export default new Vuex.Store({
         },
         async loadPlugins({commit, dispatch}) {
             try {
-                const response = await axios.get(`http://localhost:3000/data`)
-                const data = response.data
+                const response = await axios.get("https://0806f8c5-b06d-4875-b47a-4e031b65211f.mock.pstmn.io/plugins")
+                const data = response.data.data
                 commit('setPlugins', data)
                 return data
             } catch (e) {
@@ -98,7 +98,7 @@ export default new Vuex.Store({
         },
         async updatePlugins({dispatch, getters}) {
             try {
-               const response =  await axios.post("http://localhost:3000/data", {
+               const response =  await axios.post("https://0806f8c5-b06d-4875-b47a-4e031b65211f.mock.pstmn.io/plugins", {
                     tabs: ["tab1", "tab2", "tab3"],
                     tabdata: getters.getTabData,
                     plugins: getters.getPlugins
