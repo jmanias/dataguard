@@ -20,15 +20,21 @@
 
 <script>
 import Navigation from "@/components/Navigation";
-import { mapState } from "vuex";
+import {mapActions, mapState} from "vuex";
 
 export default {
   name: 'App',
   components: {
     Navigation
   },
+  async mounted() {
+    await this.loadPlugins()
+  },
   computed: {
     ...mapState(["snackbar"])
+  },
+  methods: {
+    ...mapActions(['loadPlugins'])
   }
 }
 </script>

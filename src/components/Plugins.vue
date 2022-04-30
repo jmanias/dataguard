@@ -1,4 +1,5 @@
 <template>
+  <div>
     <v-row align="stretch" class="ma-2">
       <v-col cols="12" md="4" v-for="(plugin, index) in plugins" :key="index" class="d-flex">
         <v-card outlined rounded width="100%" class="pa-2" :disabled="!getIsPluginsEnabled || isPluginDisabled(plugin)">
@@ -23,6 +24,7 @@
         </v-card>
       </v-col>
     </v-row>
+  </div>
 </template>
 
 <script>
@@ -37,57 +39,39 @@ export default {
       required: true
     }
   },
-  async mounted () {
-    await this.loadPlugins()
-    await this.sortPlugins()
-    this.getPluginInfos()
-    this.active = this.getTabByName(this.tab).active
-  },
-  updated() {
+  async updated() {
     this.setTabData()
-    this.updatePlugins()
   },
   computed: {
-    ...mapGetters(['getPlugins', 'getIsPluginsEnabled', 'getTabByName'])
+    ...mapGetters(['getPlugins', 'getIsPluginsEnabled', 'getTabByName']),
+
+    plugins () {
+      const tab = this.getTabByName(this.tab)
+      const active = tab.active
+      const disabled = tab.disabled
+      const inactive = tab.inactive
+      if (active && disabled && inactive) {
+      const plugins = active.concat(disabled,inactive);
+        const sortAlphaNum = (a, b) => a.localeCompare(b, 'en', { numeric: true })
+        return plugins.sort(sortAlphaNum)
+      }
+      return null
+    }
   },
   methods: {
-    ...mapActions(['loadPlugins', 'setTabData', 'toggleTabPluginStatusByName', 'updatePlugins', 'setSnackbar']),
-
-    sortPlugins () {
-      const tab = this.getTabByName(this.tab)
-      this.plugins = tab.active.concat(tab.disabled,tab.inactive);
-
-      const sortAlphaNum = (a, b) => a.localeCompare(b, 'en', { numeric: true })
-      this.plugins = this.plugins.sort(sortAlphaNum)
-    },
-
+    ...mapActions(['setTabData', 'toggleTabPluginStatusByName', 'updatePlugins', 'setSnackbar']),
     getPluginInfos (name) {
       return this.getPlugins[name]
     },
-
     isPluginDisabled (name) {
       return this.getTabByName(this.tab).disabled.includes(name);
     },
-
-    isSwitchEnabled (name) {
-      if (this.getTabByName(this.tab).active.includes(name)) {
-        return true
-      } else {
-        return false
-      }
-    },
-
-    togglePluginStatus (name) {
+    async togglePluginStatus (name) {
       const payload = {name: name, tab: this.tab}
       this.toggleTabPluginStatusByName(payload)
+      await this.updatePlugins()
       this.setSnackbar("Plugin updated successfully!");
     }
-  },
-  data () {
-    return {
-      plugins: {},
-      active: []
-    }
-    }
+  }
 }
 </script>

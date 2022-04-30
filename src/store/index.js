@@ -7,31 +7,27 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         snackbar: { active: false, color: "", message: "" },
-        tab1: {},
-        tab2: {},
-        tab3: {},
-        tabData: {},
-        plugins: {},
+        tab1: '',
+        tab2: '',
+        tab3: '',
+        tabData: '',
+        plugins: '',
         isPluginsEnabled: true
     },
     getters: {
         getTab1(state) {
-            return state.tab1
+            return state.tab1 || ''
         },
         getTab2(state) {
-            return state.tab2
+            return state.tab2 || ''
         },
         getTab3(state) {
-            return state.tab3
+            return state.tab3 || ''
         },
         getTabByName: (state) => (name) => {
             if (name === 'tab1') {
-                return state.tab1
-            } else if (name === 'tab2') {
-                return state.tab2
-            } else {
-                return state.tab3
-            }
+                return state.tab1 || ''
+            } else return name === 'tab2' ? state.tab2 || '' : state.tab3 || '';
         },
         getPlugins(state) {
             return state.plugins
@@ -60,13 +56,14 @@ export default new Vuex.Store({
             state.tabData = {tab1: state.tab1, tab2: state.tab2, tab3: state.tab3}
         },
         toggleTabPluginStatusByName(state, payload) {
+            const tab = payload.tab
             // if not in inactive, then add
-            if (state.tab1.inactive.includes(payload.name)) {
-                state.tab1.inactive = state.tab1.inactive.filter(e => e !== payload.name)
+            if (state[tab].inactive.includes(payload.name)) {
+                state[tab].inactive = state[tab].inactive.filter(e => e !== payload.name)
             }
             // if in inactive, then remove
             else {
-                state.tab1.inactive.push(payload.name)
+                state[tab].inactive.push(payload.name)
             }
         }
     },
