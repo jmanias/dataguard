@@ -1,5 +1,7 @@
 # dataguard
 
+### Postman Mocked Server for api GET/POST Requests
+
 ## Project setup
 ```
 yarn install
@@ -23,7 +25,7 @@ yarn lint
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
-### Start JSON Server for mocked data
+### Start JSON Server for mocked data - Post Request updates the db.json file
 ```
 json-server --watch db.json
 ```
